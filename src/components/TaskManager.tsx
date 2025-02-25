@@ -1,47 +1,53 @@
 import React, { useState } from "react";
-
 import TaskItem from "./TaskItem";
 
-const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+const TaskManager: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Buy groceries", completed: false },
     { id: 2, title: "Clean the house", completed: true },
   ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const [filter, setFilter] = useState<"all" | "completed" | "pending">("all");
+  const [newTask, setNewTask] = useState<string>("");
 
-  // Intentional bug: The filter conditions are reversed.
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
+    if (filter === "completed") return task.completed;
+    if (filter === "pending") return !task.completed;
     return true;
   });
 
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
+    if (newTask.trim() === "") return;
+
+    const newTaskObj: Task = {
       id: tasks.length + 1,
-      name: newTask,
+      title: newTask,
       completed: false,
     };
-    setTasks([...tasks, newTaskObj]);
+
+    setTasks((prevTasks) => [...prevTasks, newTaskObj]);
     setNewTask("");
   };
 
-  // Intentional bug: Directly mutating the tasks array when deleting.
   const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
+    const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+    if (confirmDelete) {
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     }
   };
 
   const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   };
 
   return (
@@ -54,32 +60,26 @@ const TaskManager = () => {
           onChange={(e) => setNewTask(e.target.value)}
           className="flex-grow border rounded-l py-2 px-3"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
+        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r hover:bg-blue-600">
           Add
         </button>
       </form>
+
       <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
-        >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
+        {["all", "completed", "pending"].map((type) => (
+          <button
+            key={type}
+            onClick={() => setFilter(type as "all" | "completed" | "pending")}
+            className={`px-4 py-1 rounded ${filter === type ? "bg-blue-500 text-white" : "text-gray-700"}`}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+        ))}
       </div>
+
       <ul>
         {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
+          <TaskItem key={task.id} task={task} onDelete={handleDeleteTask} onToggle={toggleTaskCompletion} />
         ))}
       </ul>
     </div>
