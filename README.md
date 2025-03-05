@@ -89,9 +89,9 @@ If time permits, consider implementing one or more of the following:
 - **Improved UI/UX:**
   - Enhance the user interface with additional styling improvements or animations to improve user experience.
   - Implement a confirmation dialog when deleting a task.
-- **Improved UI/UX:**
+- **Improved CI/CD:**
   - Deploy the app
-  - Create a CI/CD pipeline that will automatically deploy/release the app when changes were made.
+  - Create a CI/CD pipeline that will automatically deploy/release the app when changes are made.
 - **Unit Testing:**
   - Write tests for key components using your preferred testing framework (e.g., Jest, React Testing Library).
 
