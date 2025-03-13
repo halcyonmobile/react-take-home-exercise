@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "lib": ["ESNext", "DOM"],
+      "jsx": "react-jsx",
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "types": ["vitest/globals"],
+      "resolveJsonModule": true,
+      "isolatedModules": true
+    }
+  }
+  

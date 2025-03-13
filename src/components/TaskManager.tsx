@@ -1,87 +1,68 @@
 import React, { useState } from "react";
-
+import { useTaskManager } from "../hooks/useTaskManager";
+import { useDeleteConfirmation } from "../hooks/useDeleteConfirmation";
 import TaskItem from "./TaskItem";
+import TaskFilter from "./TaskFilter";
+import { motion, AnimatePresence } from "framer-motion";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const { tasks, filter, setFilter, addNewTask, removeTask, toggleTask } = useTaskManager();
+  const { isOpen, requestConfirmation, confirm, cancel } = useDeleteConfirmation();
+  const [newTask, setNewTask] = useState("");
 
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
-    return true;
-  });
-
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
-      completed: false,
-    };
-    setTasks([...tasks, newTaskObj]);
-    setNewTask("");
-  };
-
-  // Intentional bug: Directly mutating the tasks array when deleting.
-  const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
+  const getFilteredTasks = () => {
+    switch (filter) {
+      case "completed":
+        return tasks.filter((task) => task.completed);
+      case "pending":
+        return tasks.filter((task) => !task.completed);
+      default:
+        return tasks;
     }
   };
 
-  const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
+  const handleTaskSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTask.trim()) return;
+    addNewTask(newTask);
+    setNewTask("");
   };
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
+    <div className="container mx-auto bg-white p-6 rounded shadow-lg">
+      <form onSubmit={handleTaskSubmit} className="mb-6 flex gap-3">
         <input
           type="text"
           placeholder="New task..."
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow border rounded-l py-2 px-3"
+          className="flex-grow border rounded-lg py-2 px-4 outline-none focus:ring-2 focus:ring-blue-400"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
+        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow">
           Add
         </button>
       </form>
-      <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
-        >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
-      </div>
-      <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
+
+      <TaskFilter filter={filter} setFilter={setFilter} />
+
+      <ul className="space-y-2 mt-4">
+        <AnimatePresence>
+          {getFilteredTasks().map((task) => (
+            <motion.li
+              key={task.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <TaskItem task={task} onDelete={() => requestConfirmation(task.id, () => removeTask(task.id))} onToggle={toggleTask} />
+            </motion.li>
+          ))}
+        </AnimatePresence>
       </ul>
+
+      <DeleteConfirmation isOpen={isOpen} onConfirm={confirm} onCancel={cancel} />
     </div>
   );
 };
