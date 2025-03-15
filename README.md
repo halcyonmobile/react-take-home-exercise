@@ -61,7 +61,7 @@ The Task Manager app includes the following core features:
 
 While reviewing the project, please identify and resolve the following issues:
 
-1. **Task Filter Bug:**
+1. **SOLVED - Task Filter Bug:** 
 
    - The filter functionality is not working as expected. Changing the filter does not update the task list correctly.
 
@@ -105,6 +105,16 @@ If time permits, consider implementing one or more of the following:
 - 76942d66a5830 - chore: add typescript types
   - Add new types to better support the application's functionality.
 
+- cf750de1cd3ed - feat: add, filter, and showing tasks correctly
+
+  - SOLVED: The filter conditions
+
+  - use the types to ensure type safety
+  - add tasks correctly: guarantee that the tasks are added with the correct status, use the defined type, and use the callback form from setState to update the task list.
+
+  - toggle TaskCompletion: use correct taskType 
+
+  - TaskItem Component: style working correctly, correct props types
 
 ## Evaluation Criteria
 

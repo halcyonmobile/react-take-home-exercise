@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 
 import TaskItem from "./TaskItem";
+import { Task, TaskStatus } from "../types";
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
+  const [tasks, setTasks] = useState<Task[]>([
     { id: 1, title: "Buy groceries", completed: false },
     { id: 2, title: "Clean the house", completed: true },
   ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const [filter, setFilter] = useState<TaskStatus>("all");
+  const [newTask, setNewTask] = useState<string>('');
 
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
+  // SOLVED - Intentional bug: The filter conditions are reversed.
+  const filteredTasks: Task[] = tasks.filter((task) => {
+    if (filter === "completed") return task.completed === true;
+    if (filter === "pending") return task.completed === false;
     return true;
   });
 
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
+    if (typeof newTask !== 'string' || newTask.trim() === "") return;
+
+    const newTaskObj: Task = {
       id: tasks.length + 1,
-      name: newTask,
+      title: newTask,
       completed: false,
     };
-    setTasks([...tasks, newTaskObj]);
+    setTasks((prevTasks) => [...prevTasks, newTaskObj]);
     setNewTask("");
   };
 
@@ -40,8 +42,13 @@ const TaskManager = () => {
 
   const toggleTaskCompletion = (id: number) => {
     const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
+    if (task) {
+      setTasks((prevTasks) =>
+        prevTasks.map((t) => (t.id === id
+          ? { ...t, completed: !t.completed }
+          : t))
+      );
+    }
   };
 
   return (
