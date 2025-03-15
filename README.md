@@ -101,6 +101,11 @@ If time permits, consider implementing one or more of the following:
 - **Pull Request:** Once completed, submit one or more pull requests to showcase your changes.
 - **Documentation:** Include a brief explanation of your changes, any assumptions made, and instructions on how to test your improvements.
 
+### CHANGES
+- 76942d66a5830 - chore: add typescript types
+  - Add new types to better support the application's functionality.
+
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
