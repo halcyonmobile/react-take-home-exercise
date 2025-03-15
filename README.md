@@ -116,6 +116,11 @@ If time permits, consider implementing one or more of the following:
 
   - TaskItem Component: style working correctly, correct props types
 
+- 591d4c5ee607d - feat: update task status filter buttons
+  - create a shared button component with variants and receiving a children node
+
+
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:

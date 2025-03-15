@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import TaskItem from "./TaskItem";
 import { Task, TaskStatus } from "../types";
+import Button from "./common/Button";
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState<Task[]>([
@@ -66,18 +67,25 @@ const TaskManager = () => {
         </button>
       </form>
       <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
+        <Button
+          onClick={() => setFilter("all")}
+          variant={filter === "all" ? "secondary" : "primary"}
+          
         >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
+          All
+        </Button>
+        <Button
+          onClick={() => setFilter("completed")}
+          variant={filter === "completed" ? "secondary" : "primary"}
+        >
+          completed
+        </Button>
+        <Button
+          onClick={() => setFilter("pending")}
+          variant={filter === "pending" ? "secondary" : "primary"}
+        >
+          pending
+        </Button>
       </div>
       <ul>
         {filteredTasks.map((task) => (
