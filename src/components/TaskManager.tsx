@@ -53,7 +53,7 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-2xl">
+    <div className="container mx-auto bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-2xl flex flex-col">
       <form onSubmit={handleAddTask} className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-0">
         <input
           type="text"
@@ -70,25 +70,33 @@ const TaskManager = () => {
           Add
         </Button>
       </form>
-      <div className="flex flex-col sm:flex-row justify-around gap-2 sm:gap-4 mb-4">
+      <div className="inline-flex flex-col sm:flex-row rounded-lg p-1 bg-gray-100 mb-4 mx-auto 
+      w-full sm:w-auto
+      ">
         <Button
           onClick={() => setFilter("all")}
           variant={filter === "all" ? "secondary" : "primary"}
-          className="w-full sm:w-auto"
+          className={`rounded-none first:rounded-t sm:first:rounded-l sm:first:rounded-t-none last:rounded-b sm:last:rounded-r sm:last:rounded-b-none border-0 ${
+            filter === "all" ? "shadow-sm" : "bg-transparent hover:bg-gray-50 text-gray-800"
+          }`}
         >
           All
         </Button>
         <Button
           onClick={() => setFilter("completed")}
           variant={filter === "completed" ? "secondary" : "primary"}
-          className="w-full sm:w-auto"
+          className={`rounded-none border-0 ${
+            filter === "completed" ? "shadow-sm" : "bg-transparent hover:bg-gray-50 text-gray-800 "
+          }`}
         >
           Completed
         </Button>
         <Button
           onClick={() => setFilter("pending")}
           variant={filter === "pending" ? "secondary" : "primary"}
-          className="w-full sm:w-auto"
+          className={`rounded-none border-0 ${
+            filter === "pending" ? "shadow-sm" : "bg-transparent hover:bg-gray-50 text-gray-800"
+          }`}
         >
           Pending
         </Button>

@@ -133,6 +133,8 @@ If time permits, consider implementing one or more of the following:
 - 91c895d2d1889 - feat: responsiveness style
   - add breakpoints using tailwind parameters
 
+- 066c710a91d6f - feat(ui): restyle task status buttons into group button
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
