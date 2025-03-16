@@ -1,2 +1,2 @@
-export type TaskStatus = "all" | "completed" | "pending";
+export type TaskFilterStatus = "all" | "completed" | "pending";
 

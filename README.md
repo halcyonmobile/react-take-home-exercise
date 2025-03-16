@@ -137,6 +137,9 @@ If time permits, consider implementing one or more of the following:
 
 - 59985f7b2a929 - feat(Improved UI/UX): Implement a confirmation dialog when deleting a task
 
+- 2c3a8e816325d - refactor: consolidate task-related files and normalize naming conventions
+  - button adjustments related to styling and responsiveness
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
