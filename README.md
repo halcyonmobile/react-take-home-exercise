@@ -130,6 +130,9 @@ If time permits, consider implementing one or more of the following:
   - Some codestyle adjustments - quotes for double quotes
   - Tailwind class adjustments for better styling
 
+- 91c895d2d1889 - feat: responsiveness style
+  - add breakpoints using tailwind parameters
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:

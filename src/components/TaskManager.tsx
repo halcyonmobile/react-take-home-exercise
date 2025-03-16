@@ -53,41 +53,44 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded-lg shadow-md max-w-2xl">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
+    <div className="container mx-auto bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-2xl">
+      <form onSubmit={handleAddTask} className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-0">
         <input
           type="text"
           placeholder="New task..."
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow border rounded-l py-2 px-3"
+          className="flex-grow border rounded sm:rounded-r-none py-2 px-3"
         />
         <Button
           type="submit"
           variant="primary"
-          className="rounded-l-none rounded-r"
+          className="sm:rounded-l-none sm:rounded-r w-full sm:w-auto"
         >
           Add
         </Button>
       </form>
-      <div className="flex justify-around mb-4">
+      <div className="flex flex-col sm:flex-row justify-around gap-2 sm:gap-4 mb-4">
         <Button
           onClick={() => setFilter("all")}
           variant={filter === "all" ? "secondary" : "primary"}
+          className="w-full sm:w-auto"
         >
           All
         </Button>
         <Button
           onClick={() => setFilter("completed")}
           variant={filter === "completed" ? "secondary" : "primary"}
+          className="w-full sm:w-auto"
         >
-          completed
+          Completed
         </Button>
         <Button
           onClick={() => setFilter("pending")}
           variant={filter === "pending" ? "secondary" : "primary"}
+          className="w-full sm:w-auto"
         >
-          pending
+          Pending
         </Button>
       </div>
       <ul>
