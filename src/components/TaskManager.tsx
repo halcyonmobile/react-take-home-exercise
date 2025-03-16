@@ -19,12 +19,16 @@ const TaskManager = () => {
     return true;
   });
 
+  const getNextId = (tasks: Task[]): number => {
+    return Math.max(...tasks.map(task => task.id), 0) + 1;
+  };
+
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
     if (typeof newTask !== 'string' || newTask.trim() === "") return;
 
     const newTaskObj: Task = {
-      id: tasks.length + 1,
+      id: getNextId(tasks),
       title: newTask,
       completed: false,
     };
@@ -32,13 +36,9 @@ const TaskManager = () => {
     setNewTask("");
   };
 
-  // Intentional bug: Directly mutating the tasks array when deleting.
+  // SOLVED -Intentional bug: Directly mutating the tasks array when deleting.
   const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-    }
+    setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
   };
 
   const toggleTaskCompletion = (id: number) => {

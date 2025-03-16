@@ -65,7 +65,7 @@ While reviewing the project, please identify and resolve the following issues:
 
    - The filter functionality is not working as expected. Changing the filter does not update the task list correctly.
 
-2. **Task Deletion Issue:**
+2. **SOLVED - Task Deletion Issue:**
 
    - Deleting a task does not immediately update the UI, causing a delay or inconsistency in the displayed task list.
 
@@ -119,6 +119,10 @@ If time permits, consider implementing one or more of the following:
 - 591d4c5ee607d - feat: update task status filter buttons
   - create a shared button component with variants and receiving a children node
 
+
+- f85fa6607e92f - feat: delete SOLVED, new task fixed
+  - SOLVED - Task Deletion Issue. Use the callback form from setState to filter the current data and remove the task with the id.
+  - Generate a new item with the correct new id
 
 
 ## Evaluation Criteria
