@@ -140,6 +140,9 @@ If time permits, consider implementing one or more of the following:
 - 2c3a8e816325d - refactor: consolidate task-related files and normalize naming conventions
   - button adjustments related to styling and responsiveness
 
+- f0973f354534d - feat: implement useTasks hook for task state management
+  - implements multiple task operations (add, delete, toggle, filter)
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
