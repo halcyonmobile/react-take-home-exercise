@@ -88,7 +88,7 @@ If time permits, consider implementing one or more of the following:
   - Implement functionality to save and retrieve tasks from local storage or a remote API, ensuring that the task list persists across page reloads.
 - **Improved UI/UX:**
   - Enhance the user interface with additional styling improvements or animations to improve user experience.
-  - Implement a confirmation dialog when deleting a task.
+  - SOLVED - Implement a confirmation dialog when deleting a task.
 - **Improved UI/UX:**
   - Deploy the app
   - Create a CI/CD pipeline that will automatically deploy/release the app when changes were made.
@@ -134,6 +134,8 @@ If time permits, consider implementing one or more of the following:
   - add breakpoints using tailwind parameters
 
 - 066c710a91d6f - feat(ui): restyle task status buttons into group button
+
+- 59985f7b2a929 - feat(Improved UI/UX): Implement a confirmation dialog when deleting a task
 
 ## Evaluation Criteria
 
