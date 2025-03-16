@@ -10,7 +10,7 @@ const TaskManager = () => {
     { id: 2, title: "Clean the house", completed: true },
   ]);
   const [filter, setFilter] = useState<TaskStatus>("all");
-  const [newTask, setNewTask] = useState<string>('');
+  const [newTask, setNewTask] = useState<string>("");
 
   // SOLVED - Intentional bug: The filter conditions are reversed.
   const filteredTasks: Task[] = tasks.filter((task) => {
@@ -20,12 +20,12 @@ const TaskManager = () => {
   });
 
   const getNextId = (tasks: Task[]): number => {
-    return Math.max(...tasks.map(task => task.id), 0) + 1;
+    return Math.max(...tasks.map((task) => task.id), 0) + 1;
   };
 
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
-    if (typeof newTask !== 'string' || newTask.trim() === "") return;
+    if (typeof newTask !== "string" || newTask.trim() === "") return;
 
     const newTaskObj: Task = {
       id: getNextId(tasks),
@@ -38,22 +38,22 @@ const TaskManager = () => {
 
   // SOLVED -Intentional bug: Directly mutating the tasks array when deleting.
   const handleDeleteTask = (id: number) => {
-    setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
   const toggleTaskCompletion = (id: number) => {
     const task = tasks.find((task) => task.id === id);
     if (task) {
       setTasks((prevTasks) =>
-        prevTasks.map((t) => (t.id === id
-          ? { ...t, completed: !t.completed }
-          : t))
+        prevTasks.map((t) =>
+          t.id === id ? { ...t, completed: !t.completed } : t
+        )
       );
     }
   };
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded shadow">
+    <div className="container mx-auto bg-white p-4 rounded-lg shadow-md max-w-2xl">
       <form onSubmit={handleAddTask} className="mb-4 flex">
         <input
           type="text"
@@ -62,15 +62,18 @@ const TaskManager = () => {
           onChange={(e) => setNewTask(e.target.value)}
           className="flex-grow border rounded-l py-2 px-3"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
+        <Button
+          type="submit"
+          variant="primary"
+          className="rounded-l-none rounded-r"
+        >
           Add
-        </button>
+        </Button>
       </form>
       <div className="flex justify-around mb-4">
         <Button
           onClick={() => setFilter("all")}
           variant={filter === "all" ? "secondary" : "primary"}
-          
         >
           All
         </Button>

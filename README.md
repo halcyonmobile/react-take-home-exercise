@@ -69,7 +69,7 @@ While reviewing the project, please identify and resolve the following issues:
 
    - Deleting a task does not immediately update the UI, causing a delay or inconsistency in the displayed task list.
 
-3. **Styling Inconsistencies:**
+3. **SOLVED -Styling Inconsistencies:**
 
    - Some UI elements are not using Tailwind CSS classes consistently. Ensure the layout, spacing, and colors align with the provided design guidelines.
 
@@ -124,6 +124,11 @@ If time permits, consider implementing one or more of the following:
   - SOLVED - Task Deletion Issue. Use the callback form from setState to filter the current data and remove the task with the id.
   - Generate a new item with the correct new id
 
+- dd007c8bfbe18 - feat - SOLVED - Styling Inconsistencies
+  - Delete and add button - use the Button component
+  - Button component - adjusted to use variants and the type prop
+  - Some codestyle adjustments - quotes for double quotes
+  - Tailwind class adjustments for better styling
 
 ## Evaluation Criteria
 
