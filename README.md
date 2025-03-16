@@ -143,6 +143,10 @@ If time permits, consider implementing one or more of the following:
 - f0973f354534d - feat: implement useTasks hook for task state management
   - implements multiple task operations (add, delete, toggle, filter)
 
+- af2838943be20 - refactor: refactor TaskManager component with useTasks
+  - Separation of concerns (uses custom hook "useSTasks" for logic)
+  - Performance optimization with memo to TaskManager and useCallback to handleAddTask
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
