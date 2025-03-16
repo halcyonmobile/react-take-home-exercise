@@ -1,86 +1,39 @@
 import React, { useState } from "react";
 
-import TaskItem from "./TaskItem";
+import { TaskForm } from "#ui";
+import { TaskItem } from "#ui";
+import { TaskFilter } from "#ui";
+import { useTaskManager } from "#hooks";
+import { TaskStatus } from "#model";
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const { tasks, addTask, deleteTask, changeTaskStatus } = useTaskManager();
+  // kept the filter out from task manager hooks
+  // reasons: local state management, no persistency is ui specific only
+  const [filter, setFilter] = useState<TaskStatus | null>(null);
 
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
-    return true;
-  });
-
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
-      completed: false,
-    };
-    setTasks([...tasks, newTaskObj]);
-    setNewTask("");
+  const getFilteredTasks = () => {
+    if (filter === null) return tasks;
+    return tasks.filter(task => task.status === filter);
   };
 
-  // Intentional bug: Directly mutating the tasks array when deleting.
-  const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-    }
-  };
-
-  const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
-  };
+  const taskListItems = getFilteredTasks().map(task => (
+    <TaskItem
+      key={task.id}
+      task={task}
+      onDelete={deleteTask}
+      onChangeStatus={changeTaskStatus}
+    />
+  ));
 
   return (
     <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
-        <input
-          type="text"
-          placeholder="New task..."
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow border rounded-l py-2 px-3"
-        />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
-          Add
-        </button>
-      </form>
-      <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
-        >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
-      </div>
+      <TaskForm onAddTask={addTask} />
+      <TaskFilter activeFilter={filter} onFilterChange={setFilter} />
       <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
+        <li>
+          {taskListItems}
+        </li>
       </ul>
     </div>
   );
