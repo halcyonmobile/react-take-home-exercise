@@ -23,7 +23,7 @@ const TaskItem = ({ task, darkMode }: Props) => {
 
   return (
     <>
-    <Card className={`flex items-center justify-between border-b p-3 ${darkMode ? 'bg-gray-600 mb-4 border-gray-800': 'bg-gray-100 border-gray-200'}`}>
+    <Card className={`flex items-center justify-between border-b p-3 mb-4 ${darkMode ? 'bg-gray-600 border-gray-700': 'bg-gray-100 border-gray-200'}`}>
       <CardContent className="flex justify-between items-center p-0">
         <Checkbox
           className="mr-2"
@@ -38,10 +38,10 @@ const TaskItem = ({ task, darkMode }: Props) => {
       </CardContent>
 
       <button
-        className="flex items-center bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+        className="flex items-center justify-center bg-red-600 text-white size-8 rounded-lg hover:bg-red-500 transition-colors"
         onClick={() => setShowModal(true)}
       >
-        <FiTrash className="mr-1" size={16} /> Delete
+        <FiTrash size={18} />
       </button>
     </Card>
 

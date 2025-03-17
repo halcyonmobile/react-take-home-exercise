@@ -13,7 +13,7 @@ const TaskForm = ({ newTask, setNewTask, handleAddTask }: TaskFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex">
+    <form onSubmit={handleSubmit} className="my-4 flex">
       <input
         type="text"
         placeholder="New task..."

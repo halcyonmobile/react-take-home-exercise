@@ -39,7 +39,7 @@ const TaskManager: React.FC<TaskManagerProps> = ({ darkMode }) => {
     : 'There are no tasks at the moment';
 
   return (
-    <div className={`container min-h-52 mx-auto p-4 rounded shadow ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
+    <div className={`container min-h-52 mx-auto p-4 rounded-lg shadow ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
       <TaskForm newTask={newTask} setNewTask={setNewTask} handleAddTask={handleAddTask} />
       <TaskFilters filter={filter} setFilter={setFilter} darkMode={darkMode}/>
       {filteredTasks.length === 0 && <p className="mt-8 text-center">{getEmptyStateText}</p>}
