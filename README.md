@@ -147,6 +147,10 @@ If time permits, consider implementing one or more of the following:
   - Separation of concerns (uses custom hook "useSTasks" for logic)
   - Performance optimization with memo to TaskManager and useCallback to handleAddTask
 
+- 0ab42f21cbb30 - chore: update .gitignore to exclude test coverage reports
+
+- 3c4f1a542f966 - test: add Jest configuration and setup files
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
