@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: task-manager
+    env: static
+    buildCommand: pnpm install && pnpm build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PNPM_VERSION
+        value: 9
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -84,7 +84,7 @@ While reviewing the project, please identify and resolve the following issues:
 
 If time permits, consider implementing one or more of the following:
 
-- **Persistence:**
+- **SOLVED - Persistence - Local Storage:**
   - Implement functionality to save and retrieve tasks from local storage or a remote API, ensuring that the task list persists across page reloads.
 - **Improved UI/UX:**
   - Enhance the user interface with additional styling improvements or animations to improve user experience.
@@ -153,8 +153,16 @@ If time permits, consider implementing one or more of the following:
 
 feat/test: add Persistence from local storage
   - update tests for persistence functionality
-  - 
 
+feat(deploy): add Render.com deployment configuration
+
+  - Add render.yaml for static site deployment setup
+  - Configure build process with pnpm
+  - Set up proper routing for React SPA
+  - Enable pull request preview environments
+  - Configure Node.js and pnpm version requirements
+
+Resolves the "Deploy APP" enhancement from the project requirements
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
