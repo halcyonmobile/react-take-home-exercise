@@ -2,10 +2,7 @@ services:
   - type: web
     name: task-manager
     env: static
-    buildCommand: |
-      pnpm install
-      pnpm test
-      pnpm build
+    buildCommand: pnpm install --frozen-lockfile && pnpm test && pnpm run build
     staticPublishPath: ./dist
     pullRequestPreviewsEnabled: true
     autoDeploy: true
