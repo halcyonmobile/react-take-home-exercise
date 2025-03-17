@@ -2,14 +2,25 @@ services:
   - type: web
     name: task-manager
     env: static
-    buildCommand: pnpm install && pnpm build
+    buildCommand: |
+      pnpm install
+      pnpm test
+      pnpm build
     staticPublishPath: ./dist
     pullRequestPreviewsEnabled: true
+    autoDeploy: true
+    branches:
+      - name: main
+        environment: production
+      - name: samir-souza-solution
+        environment: preview
     envVars:
       - key: NODE_VERSION
         value: 20
       - key: PNPM_VERSION
         value: 9
+      - key: CI
+        value: true
     headers:
       - path: /*
         name: Cache-Control

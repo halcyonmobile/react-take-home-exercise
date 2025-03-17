@@ -162,7 +162,14 @@ feat(deploy): add Render.com deployment configuration
   - Enable pull request preview environments
   - Configure Node.js and pnpm version requirements
 
-Resolves the "Deploy APP" enhancement from the project requirements
+feat(ci/cd): configure Render.com deployment with branch environments
+
+- Set up automatic deployments for main and samir-souza-solution branches
+- Configure production environment for main branch
+- Configure preview environment for samir-souza-solution branch
+- Add CI/CD pipeline with test execution
+- Enable pull request preview environments
+
 ## Evaluation Criteria
 
 Your submission will be evaluated based on:
