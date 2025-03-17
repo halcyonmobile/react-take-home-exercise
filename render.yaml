@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: task-manager
+    env: static
+    buildCommand: pnpm install --frozen-lockfile && pnpm test && pnpm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+    autoDeploy: true
+    branches:
+      - name: main
+        environment: production
+      - name: samir-souza-solution
+        environment: preview
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PNPM_VERSION
+        value: 9
+      - key: CI
+        value: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

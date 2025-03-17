@@ -1,89 +1,75 @@
-import React, { useState } from "react";
+import React, { memo, useCallback } from "react";
 
 import TaskItem from "./TaskItem";
+import Button from "./common/Button";
 
-const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+import { useTasks } from "../hooks/useTasks";
+import { FILTER_BUTTONS } from "../constants/Task";
 
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
-    return true;
-  });
+const TaskManager = memo(() => {
+  const {
+    tasks,
+    filter,
+    newTaskTitle,
+    setFilter,
+    setNewTaskTitle,
+    addTask,
+    deleteTask,
+    toggleTask,
+  } = useTasks();
 
-  const handleAddTask = (e: React.FormEvent) => {
+  const handleAddTask = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
-      completed: false,
-    };
-    setTasks([...tasks, newTaskObj]);
-    setNewTask("");
-  };
-
-  // Intentional bug: Directly mutating the tasks array when deleting.
-  const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-    }
-  };
-
-  const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
-  };
+    addTask(newTaskTitle);
+    setNewTaskTitle("");
+  }, [addTask, newTaskTitle, setNewTaskTitle]);
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
+    <div className="container mx-auto bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-2xl flex flex-col">
+      <form onSubmit={handleAddTask} className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-0">
         <input
           type="text"
           placeholder="New task..."
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow border rounded-l py-2 px-3"
+          value={newTaskTitle}
+          onChange={(e) => setNewTaskTitle(e.target.value)}
+          className="flex-grow border rounded sm:rounded-r-none py-2 px-3"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
-          Add
-        </button>
-      </form>
-      <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
+        <Button
+          type="submit"
+          variant="primary"
+          className="sm:rounded-l-none sm:rounded-r w-full sm:w-auto"
         >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
+          Add
+        </Button>
+      </form>
+      
+      <div className="inline-flex flex-col sm:flex-row rounded-lg p-1 bg-gray-100 mb-4 mx-auto w-full sm:w-auto">
+        {FILTER_BUTTONS.map(({ label, value }) => (
+          <Button
+            key={value}
+            onClick={() => setFilter(value)}
+            variant={filter === value ? "secondary" : "primary"}
+            className={`text-black rounded-none first:rounded-t sm:first:rounded-l sm:first:rounded-t-none last:rounded-b sm:last:rounded-r sm:last:rounded-b-none border-0 ${
+              filter === value ? "shadow-sm" : "bg-transparent hover:bg-gray-50"
+            }`}
+          >
+            {label}
+          </Button>
+        ))}
       </div>
+
       <ul>
-        {filteredTasks.map((task) => (
+        {tasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
+            onDelete={deleteTask}
+            onToggle={toggleTask}
           />
         ))}
       </ul>
     </div>
   );
-};
+});
 
 export default TaskManager;
