@@ -1,29 +1,52 @@
-import React from "react";
+import { useState } from "react";
+import TaskDeleteModal from "./TaskDeleteModal";
+import { Checkbox } from "@/components/ui/Checkbox"
+import { Card, CardContent } from '@/components/ui/Card';
+import { FiTrash } from "react-icons/fi";
+import { Task } from "@/models/TaskManager";
+import { useTasks } from "@/services/stores/useTasks";
 
-const TaskItem = ({ task, onDelete, onToggle }: any) => {
+interface Props {
+  task: Task;
+  darkMode: boolean;
+}
+
+const TaskItem = ({ task, darkMode }: Props) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const { toggleTask, deleteTask } = useTasks(state => ({
+    tasks: state.tasks,
+    setTasks:  state.setTasks,
+    toggleTask: state.toggleTask,
+    deleteTask: state.deleteTask
+  }));
+
   return (
-    <li className="flex items-center justify-between border-b py-2">
-      <span
-        onClick={() => onToggle(task.id)}
-        className={`cursor-pointer ${
-          task.isCompleted ? "text-black" : "line-through text-green-500"
-        }`}
-      >
-        {task.title}
-      </span>
+    <>
+    <Card className={`flex items-center justify-between border-b p-3 ${darkMode ? 'bg-gray-600 mb-4 border-gray-800': 'bg-gray-100 border-gray-200'}`}>
+      <CardContent className="flex justify-between items-center p-0">
+        <Checkbox
+          className="mr-2"
+          checked={task.completed}
+          onCheckedChange={() => toggleTask(task.id)}
+        />
+        <span
+          className={task.completed ? "line-through" : darkMode ? "text-white" : "text-black"}
+        >
+          {task.title}
+        </span>
+      </CardContent>
 
       <button
-        onClick={() => onDelete(task.id)}
-        style={{
-          backgroundColor: "red",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-        }}
+        className="flex items-center bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+        onClick={() => setShowModal(true)}
       >
-        Delete
+        <FiTrash className="mr-1" size={16} /> Delete
       </button>
-    </li>
+    </Card>
+
+    {showModal && <TaskDeleteModal onDelete={() => deleteTask(task.id)} closeModal={() => setShowModal(false)} />}
+    </>
   );
 };
 
