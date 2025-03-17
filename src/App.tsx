@@ -1,15 +1,18 @@
-import React from "react";
-
+import { useState } from "react";
 import TaskManager from "./components/TaskManager";
+import ThemeSwitch from "./components/ThemeSwitch";
+import TaskManagerHeader from "./components/TaskManagerHeader";
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <header className="text-center mb-4">
-        <h1 className="text-3xl font-bold">Task Manager</h1>
-      </header>
+  const [darkMode, setDarkMode] = useState(true);
 
-      <TaskManager />
+  return (
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} p-4`}>
+      <header className="text-center my-5">
+        <TaskManagerHeader />
+        <ThemeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
+      </header>
+      <TaskManager darkMode={darkMode} />
     </div>
   );
 }
