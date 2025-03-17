@@ -47,7 +47,10 @@ describe('TaskManager Component', () => {
     });
 
     render(<TaskManager />);
-    const form = screen.getByRole('form', { name: /add task form/i });
+    const addButton = screen.getByRole('button', { name: /add/i });
+    const form = addButton.closest('form');
+    if (!form) throw new Error('Form not found');
+    
     fireEvent.submit(form);
 
     expect(mockAddTask).toHaveBeenCalledWith('New Task');

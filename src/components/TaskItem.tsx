@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Task } from "../types";
 import Button from "./common/Button";
 import ConfirmDialog from "./common/ConfirmDialog";

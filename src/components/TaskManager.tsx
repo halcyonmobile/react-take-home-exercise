@@ -50,7 +50,7 @@ const TaskManager = memo(() => {
             onClick={() => setFilter(value)}
             variant={filter === value ? "secondary" : "primary"}
             className={`rounded-none first:rounded-t sm:first:rounded-l sm:first:rounded-t-none last:rounded-b sm:last:rounded-r sm:last:rounded-b-none border-0 ${
-              filter === value ? "shadow-sm" : "bg-transparent hover:bg-gray-50 text-gray-800"
+              filter === value ? "shadow-sm" : "bg-transparent hover:bg-gray-50 text-gray-900"
             }`}
           >
             {label}

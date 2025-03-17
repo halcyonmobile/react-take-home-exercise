@@ -89,10 +89,10 @@ If time permits, consider implementing one or more of the following:
 - **Improved UI/UX:**
   - Enhance the user interface with additional styling improvements or animations to improve user experience.
   - SOLVED - Implement a confirmation dialog when deleting a task.
-- **Improved UI/UX:**
+- **Deploy APP:**
   - Deploy the app
   - Create a CI/CD pipeline that will automatically deploy/release the app when changes were made.
-- **Unit Testing:**
+- **SOLVED - Unit Testing:**
   - Write tests for key components using your preferred testing framework (e.g., Jest, React Testing Library).
 
 ## Submission Instructions
@@ -150,6 +150,10 @@ If time permits, consider implementing one or more of the following:
 - 0ab42f21cbb30 - chore: update .gitignore to exclude test coverage reports
 
 - 3c4f1a542f966 - test: add Jest configuration and setup files
+
+feat/test: add Persistence from local storage
+  - update tests for persistence functionality
+  - 
 
 ## Evaluation Criteria
 
