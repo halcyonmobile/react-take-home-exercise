@@ -1,5 +1,7 @@
 # React Take-Home Challenge: Task Manager App
 
+[Solution Implementation Details by Samir Souza](./README-SAMIR.md)
+
 ## Overview
 
 This exercise is designed to assess your proficiency with React, TypeScript and Tailwind CSS. In this project, you'll work on a simple Task Manager application that allows users to add, view, and manage tasks. Your goal is to review the existing codebase, identify issues, and implement fixes and enhancements.
@@ -89,7 +91,7 @@ If time permits, consider implementing one or more of the following:
 - **Improved UI/UX:**
   - Enhance the user interface with additional styling improvements or animations to improve user experience.
   - SOLVED - Implement a confirmation dialog when deleting a task.
-- **Deploy APP:**
+- **SOLVED - Deploy APP:**
   - Deploy the app
   - Create a CI/CD pipeline that will automatically deploy/release the app when changes were made.
 - **SOLVED - Unit Testing:**
@@ -101,74 +103,6 @@ If time permits, consider implementing one or more of the following:
 - **Pull Request:** Once completed, submit one or more pull requests to showcase your changes.
 - **Documentation:** Include a brief explanation of your changes, any assumptions made, and instructions on how to test your improvements.
 
-### CHANGES
-- 76942d66a5830 - chore: add typescript types
-  - Add new types to better support the application's functionality.
-
-- cf750de1cd3ed - feat: add, filter, and showing tasks correctly
-
-  - SOLVED: The filter conditions
-
-  - use the types to ensure type safety
-  - add tasks correctly: guarantee that the tasks are added with the correct status, use the defined type, and use the callback form from setState to update the task list.
-
-  - toggle TaskCompletion: use correct taskType 
-
-  - TaskItem Component: style working correctly, correct props types
-
-- 591d4c5ee607d - feat: update task status filter buttons
-  - create a shared button component with variants and receiving a children node
-
-
-- f85fa6607e92f - feat: delete SOLVED, new task fixed
-  - SOLVED - Task Deletion Issue. Use the callback form from setState to filter the current data and remove the task with the id.
-  - Generate a new item with the correct new id
-
-- dd007c8bfbe18 - feat - SOLVED - Styling Inconsistencies
-  - Delete and add button - use the Button component
-  - Button component - adjusted to use variants and the type prop
-  - Some codestyle adjustments - quotes for double quotes
-  - Tailwind class adjustments for better styling
-
-- 91c895d2d1889 - feat: responsiveness style
-  - add breakpoints using tailwind parameters
-
-- 066c710a91d6f - feat(ui): restyle task status buttons into group button
-
-- 59985f7b2a929 - feat(Improved UI/UX): Implement a confirmation dialog when deleting a task
-
-- 2c3a8e816325d - refactor: consolidate task-related files and normalize naming conventions
-  - button adjustments related to styling and responsiveness
-
-- f0973f354534d - feat: implement useTasks hook for task state management
-  - implements multiple task operations (add, delete, toggle, filter)
-
-- af2838943be20 - refactor: refactor TaskManager component with useTasks
-  - Separation of concerns (uses custom hook "useSTasks" for logic)
-  - Performance optimization with memo to TaskManager and useCallback to handleAddTask
-
-- 0ab42f21cbb30 - chore: update .gitignore to exclude test coverage reports
-
-- 3c4f1a542f966 - test: add Jest configuration and setup files
-
-feat/test: add Persistence from local storage
-  - update tests for persistence functionality
-
-feat(deploy): add Render.com deployment configuration
-
-  - Add render.yaml for static site deployment setup
-  - Configure build process with pnpm
-  - Set up proper routing for React SPA
-  - Enable pull request preview environments
-  - Configure Node.js and pnpm version requirements
-
-feat(ci/cd): configure Render.com deployment with branch environments
-
-- Set up automatic deployments for main and samir-souza-solution branches
-- Configure production environment for main branch
-- Configure preview environment for samir-souza-solution branch
-- Add CI/CD pipeline with test execution
-- Enable pull request preview environments
 
 ## Evaluation Criteria
 
