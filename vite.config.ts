@@ -14,4 +14,5 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/tests/setup.ts',
   },
+  base: '/react-take-home-exercise'
 } as UserConfig);
