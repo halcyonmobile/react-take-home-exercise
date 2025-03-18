@@ -20,6 +20,7 @@
       "@/*": ["./src/*"]
     }
   },
+  "types": ["node", "vitest", "@testing-library/jest-dom/vitest"],
   "include": ["src", "services/zustand"],
   "exclude": ["node_modules"]
 }
