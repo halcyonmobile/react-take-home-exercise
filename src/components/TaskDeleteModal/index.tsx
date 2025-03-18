@@ -7,7 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/Dialog"
+} from "@/components/Dialog"
 
 interface Props {
   onDelete: () => void;

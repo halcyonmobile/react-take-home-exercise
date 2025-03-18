@@ -9,7 +9,7 @@ const TaskForm = ({ newTask, setNewTask, handleAddTask }: TaskFormProps) => {
     e.preventDefault();
     if (!newTask) return;
     handleAddTask(newTask);
-    setNewTask('');
+    setNewTask("");
   };
 
   return (
@@ -21,7 +21,10 @@ const TaskForm = ({ newTask, setNewTask, handleAddTask }: TaskFormProps) => {
         onChange={(e) => setNewTask(e.target.value)}
         className="flex-grow border text-gray-800 rounded-l-lg py-2 px-3 h-11"
       />
-      <button type="submit" className="bg-indigo-700 text-white px-4 font-bold rounded-r-lg h-11 hover:bg-indigo-500 transition-colors">
+      <button
+        type="submit"
+        className="bg-indigo-700 text-white px-4 font-bold rounded-r-lg h-11 hover:bg-indigo-500 transition-colors"
+      >
         Add task
       </button>
     </form>
