@@ -63,8 +63,6 @@ const TaskFilters = ({ filter, setFilter, darkMode }: Props) => {
     (task: Task) => task.completed
   ).length;
 
-  // flex justify-around mb-4
-
   return (
     <div className="mb-4 flex flex-col items-center sm:flex-row sm:justify-around">
       <FilterButton
