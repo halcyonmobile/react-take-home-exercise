@@ -36,7 +36,7 @@ const FilterButton = ({
   <button
     data-testid={testId}
     onClick={onClick}
-    className={`px-4 py-2
+    className={`text-sm sm:text-base px-4 py-2 w-40 sm:w-auto mb-2
       ${darkMode ? "text-gray-200" : "text-gray-800"} 
       ${
         active
@@ -63,8 +63,10 @@ const TaskFilters = ({ filter, setFilter, darkMode }: Props) => {
     (task: Task) => task.completed
   ).length;
 
+  // flex justify-around mb-4
+
   return (
-    <div className="flex justify-around mb-4">
+    <div className="mb-4 flex flex-col items-center sm:flex-row sm:justify-around">
       <FilterButton
         testId="filter-all"
         active={filter === "all"}

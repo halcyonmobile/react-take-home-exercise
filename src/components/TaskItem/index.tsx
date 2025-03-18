@@ -30,7 +30,7 @@ const TaskItem = ({ task, darkMode }: Props) => {
             : "bg-gray-100 border-gray-200"
         }`}
       >
-        <CardContent className="flex justify-between items-center p-0">
+        <CardContent className="flex justify-between items-center p-0 text-sm sm:text-base">
           <Checkbox
             className="mr-2"
             checked={task.completed}
@@ -52,7 +52,7 @@ const TaskItem = ({ task, darkMode }: Props) => {
         <button
           type="button"
           aria-label="delete"
-          className="flex items-center justify-center bg-red-600 text-white size-8 rounded-lg hover:bg-red-500 transition-colors"
+          className="flex items-center justify-center bg-red-600 text-white size-8 min-w-8 rounded-lg hover:bg-red-500 transition-colors"
           onClick={() => setShowModal(true)}
         >
           <FiTrash size={18} />

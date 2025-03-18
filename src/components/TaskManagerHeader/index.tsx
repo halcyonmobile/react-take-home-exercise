@@ -31,12 +31,12 @@ const TaskManagerHeader = () => {
   return (
     <div className="min-w-full flex items-center  justify-center">
       <div className="font-bold">
-        <p className="text-xl">{getDateInfo().month}</p>
+        <p className="text-lg sm:text-xl">{getDateInfo().month}</p>
         <p>{getDateInfo().day}</p>
       </div>
       <div className="text-left ml-6">
-        <h2 className="text-4xl font-bold">{renderGreeting()}</h2>
-        <h3 className="text-2xl font-bold text-gray-500">See your plan for today :)</h3>
+        <h2 className="text-2xl sm:text-4xl font-bold">{renderGreeting()}</h2>
+        <h3 className="text-1xl sm:text-2xl font-bold text-gray-500">See your plan for today :)</h3>
       </div>
     </div>
   )

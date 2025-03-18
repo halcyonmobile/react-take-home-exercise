@@ -11,7 +11,7 @@ interface TaskManagerProps {
   darkMode: boolean;
 }
 
-const TaskManager: React.FC<TaskManagerProps> = ({ darkMode }) => {
+const TaskManager = ({ darkMode }: TaskManagerProps) => {
   const [filter, setFilter] = useState<Filters>("all");
   const [newTask, setNewTask] = useState("");
 
@@ -36,8 +36,6 @@ const TaskManager: React.FC<TaskManagerProps> = ({ darkMode }) => {
     setFilter("all");
   };
 
-  console.log('AQUI \n\n\n', { tasks })
-
   const getEmptyStateText =
     filter !== "all"
       ? "No tasks found with the current filter"
@@ -45,7 +43,7 @@ const TaskManager: React.FC<TaskManagerProps> = ({ darkMode }) => {
 
   return (
     <div
-      className={`container min-h-52 mx-auto p-4 rounded-lg shadow ${
+      className={`w-full min-h-52 mx-auto p-4 rounded-lg shadow ${
         darkMode ? "bg-gray-700 text-white" : "bg-white text-black"
       }`}
       data-testid="task-manager"

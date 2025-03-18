@@ -67,7 +67,7 @@ describe('TaskManager', () => {
       render(<TaskManager darkMode={true} />);
       const newTask = 'New task :)';
       const input = screen.getByPlaceholderText('New task...');
-      const button = screen.getByText('Add task');
+      const button = screen.getByTestId('add-task');
       
       fireEvent.change(input, { target: { value: newTask } });
       fireEvent.click(button);

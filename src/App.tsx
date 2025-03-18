@@ -7,10 +7,10 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} p-4`}>
+    <div className={`w-full min-h-screen ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} p-4 sm:px-20`}>
       <header className="text-center my-5">
-        <TaskManagerHeader />
         <ThemeSwitch darkMode={darkMode} setDarkMode={setDarkMode} />
+        <TaskManagerHeader />
       </header>
       <TaskManager darkMode={darkMode} />
     </div>

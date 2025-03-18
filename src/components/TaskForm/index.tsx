@@ -1,3 +1,5 @@
+import { FiPlus } from "react-icons/fi"
+
 interface TaskFormProps {
   newTask: string;
   setNewTask: (task: string) => void;
@@ -22,10 +24,11 @@ const TaskForm = ({ newTask, setNewTask, handleAddTask }: TaskFormProps) => {
         className="flex-grow border text-gray-800 rounded-l-lg py-2 px-3 h-11"
       />
       <button
+        data-testid="add-task"
         type="submit"
-        className="bg-indigo-700 text-white px-4 font-bold rounded-r-lg h-11 hover:bg-indigo-500 transition-colors"
+        className="bg-indigo-700 flex items-center text-white text-sm sm:text-base px-4 font-bold rounded-r-lg h-11 hover:bg-indigo-500 transition-colors"
       >
-        Add task
+        <FiPlus size={18} />
       </button>
     </form>
   );

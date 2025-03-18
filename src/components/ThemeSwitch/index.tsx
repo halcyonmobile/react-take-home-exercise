@@ -7,7 +7,7 @@ interface Props {
 
 const ThemeSwitch = ({ darkMode, setDarkMode }: Props) => {
   return (
-    <div className="flex justify-end mb-4">
+    <div className="flex justify-end my-6">
       <div className="flex items-center">
         <button
           onClick={() => setDarkMode(!darkMode)}
