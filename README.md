@@ -1,5 +1,18 @@
 # React Take-Home Challenge: Task Manager App
 
+## Changes : 
+
+- Persistence 
+- CI/CD
+- **Persistence** - DONE 
+- **Improved UI/UX:** - DONE 
+- **Improved UI/UX:** - DONE 
+- **Unit Testing:** DONE
+
+## Deployed Url : 
+
+https://luizrosalba.github.io/react-take-home-exercise/
+
 ## Overview
 
 This exercise is designed to assess your proficiency with React, TypeScript and Tailwind CSS. In this project, you'll work on a simple Task Manager application that allows users to add, view, and manage tasks. Your goal is to review the existing codebase, identify issues, and implement fixes and enhancements.

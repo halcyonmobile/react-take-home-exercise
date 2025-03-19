@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskManager Test Matches DOM Snapshot 1`] = `
+<div>
+  <div
+    class="container mx-auto bg-white dark:bg-gray-500 p-4 rounded shadow"
+  >
+    <form
+      class="mb-4 flex"
+    >
+      <input
+        class="flex-grow border rounded-l py-2 px-1 text-black bg-white dark:bg-gray-700 dark:text-white"
+        data-testid="task-input"
+        placeholder="New task..."
+        type="text"
+        value=""
+      />
+      <button
+        class="bg-blue-500 text-white px-4 rounded-r"
+        data-testid="task-add-button"
+        type="submit"
+      >
+        Add
+      </button>
+    </form>
+    <div
+      class="flex justify-around mb-4"
+    >
+      <button
+        class="px-4 rounded text-gray-700 dark:text-white bg-blue-500 text-white"
+      >
+        All
+      </button>
+      <button
+        class="px-4 rounded text-gray-700 dark:text-white"
+      >
+        Completed
+      </button>
+      <button
+        class="px-4 rounded text-gray-700 dark:text-white"
+      >
+        Pending
+      </button>
+    </div>
+    <ul>
+      <li
+        class="flex items-center justify-between border-b py-2"
+      >
+        <span
+          class="cursor-pointer text-gray-900 dark:text-white"
+          data-testid="toggle-button"
+        >
+          Buy groceries
+        </span>
+        <button
+          class="px-2 py-2 bg-red-500 dark:bg-red-800 text-white rounded"
+          data-testid="delete-button"
+          style="color: white; padding: 4px 8px; border-radius: 4px;"
+        >
+          Delete
+        </button>
+      </li>
+      <li
+        class="flex items-center justify-between border-b py-2"
+      >
+        <span
+          class="cursor-pointer line-through text-green-500"
+          data-testid="toggle-button"
+        >
+          Clean the house
+        </span>
+        <button
+          class="px-2 py-2 bg-red-500 dark:bg-red-800 text-white rounded"
+          data-testid="delete-button"
+          style="color: white; padding: 4px 8px; border-radius: 4px;"
+        >
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

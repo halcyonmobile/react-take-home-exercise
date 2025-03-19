@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Test Matches DOM Snapshot 1`] = `
+<div>
+  <li
+    class="flex items-center justify-between border-b py-2"
+  >
+    <span
+      class="cursor-pointer line-through text-green-500"
+      data-testid="toggle-button"
+    >
+      Placeholder
+    </span>
+    <button
+      class="px-2 py-2 bg-red-500 dark:bg-red-800 text-white rounded"
+      data-testid="delete-button"
+      style="color: white; padding: 4px 8px; border-radius: 4px;"
+    >
+      Delete
+    </button>
+  </li>
+</div>
+`;

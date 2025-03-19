@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Test Matches DOM Snapshot 1`] = `
+<div>
+  <button
+    class="px-4 rounded text-gray-700 dark:text-white"
+  >
+    Placeholder
+  </button>
+</div>
+`;

@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/react-take-home-exercise/dev-sw.js?dev-sw', { scope: '/react-take-home-exercise/', type: 'classic' })
