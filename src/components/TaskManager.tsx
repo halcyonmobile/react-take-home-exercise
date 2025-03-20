@@ -1,89 +1,55 @@
-import React, { useState } from "react";
+import React, { FC, FormEvent, useState } from "react"
+import { useTasks } from "../hooks/useTasks"
+import TaskList from "../components/TaskList"
+import { Filter } from "../types/types"
 
-import TaskItem from "./TaskItem";
+const TaskManager: FC = () => {
+  const [filter, setFilter] = useState<Filter>("all")
+  const [newTask, setNewTask] = useState("")
+  const { addTask, deleteTask, toggleTask, filterTasks } = useTasks()
 
-const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
-
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
-    return true;
-  });
-
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
-      completed: false,
-    };
-    setTasks([...tasks, newTaskObj]);
-    setNewTask("");
-  };
-
-  // Intentional bug: Directly mutating the tasks array when deleting.
-  const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-    }
-  };
-
-  const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
-  };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    addTask(newTask)
+    setNewTask("")
+  }
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
+    <div className="container mx-auto bg-white p-6 rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="mb-4 flex">
         <input
           type="text"
           placeholder="New task..."
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow border rounded-l py-2 px-3"
+          className="flex-grow border border-gray-300 rounded-l-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-600 transition duration-200"
+        >
           Add
         </button>
       </form>
-      <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
-        >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
-      </div>
-      <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
-      </ul>
-    </div>
-  );
-};
 
-export default TaskManager;
+      <div className="flex justify-around mb-4">
+        {["all", "completed", "pending"].map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f as Filter)}
+            className={`px-4 py-2 rounded-md transition duration-200 ${filter === f
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+          >
+            {f.charAt(0).toUpperCase() + f.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      <TaskList tasks={filterTasks(filter)} onDelete={deleteTask} onToggle={toggleTask} />
+    </div>
+  )
+}
+
+export default TaskManager
