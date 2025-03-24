@@ -1,6 +1,11 @@
 import React from "react";
 
-const Modal = ({ children, isOpen }) => {
+type ModalProps = {
+    children?: React.ReactNode,
+    isOpen: boolean,
+}
+
+const Modal = ({ children, isOpen }: ModalProps) => {
 
   if (!isOpen) return null;
 

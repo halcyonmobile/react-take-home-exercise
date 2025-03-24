@@ -30,7 +30,7 @@ const TaskManager = () => {
     setDeleteModalOpen(true);
   }
 
-  const deleteTask = (id) => {
+  const deleteTask = (id: number) => {
     if (id) handleDeleteTask(id);
     setIdTaskToDelete(0);
     setDeleteModalOpen(false);

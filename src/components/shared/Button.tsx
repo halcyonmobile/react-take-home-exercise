@@ -1,6 +1,12 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-const Button = ({ onClick, className='', children }) => (
+type ButtonProps = {
+    children?: React.ReactNode,
+    className?: string,
+    onClick: MouseEventHandler<HTMLButtonElement>,
+}
+
+const Button = ({ onClick, className='', children } : ButtonProps) => (
   <button
     onClick={onClick}
     className={`${className} px-4 py-2 rounded`}
