@@ -53,12 +53,14 @@ const useTasks = () => {
     setNewTask("");
   };
 
+  const getTaskById = (id: number): Item | null => tasks.find((task) => task.id === id) || null;
+
   const handleDeleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
+    const task = getTaskById(id);
 
     if (!task) return;
 
@@ -73,6 +75,7 @@ const useTasks = () => {
   return {
     filter,
     filters: FILTERS,
+    getTaskById,
     handleAddTask,
     handleDeleteTask,
     lastUpdate,

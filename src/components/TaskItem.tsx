@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Item } from "../types";
+import Button from "./shared/Button";
 
 type TaskItemProps = {
   task: Item,
@@ -20,12 +21,12 @@ const TaskItem = ({ task, onDelete, onToggle }: TaskItemProps) => {
         {task.title}
       </span>
 
-      <button
+      <Button
         onClick={() => onDelete(task.id)}
-        className="bg-red-500 text-white px-4 py-2 rounded"
+        className="bg-red-500 text-white"
       >
         Delete
-      </button>
+      </Button>
     </li>
   );
 };
