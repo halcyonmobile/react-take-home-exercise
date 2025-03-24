@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+import useTasks from "../hooks/useTasks";
 
 import TaskItem from "./TaskItem";
 import FilterButton from "./shared/FilterButton";
-import useTasks from "../hooks/useTasks";
 
 const TaskManager = () => {
   const {
