@@ -62,8 +62,12 @@ const useTasks = () => {
 
     if (!task) return;
 
-    setLastUpdate(new Date());
     task.completed = !task.completed;
+
+    setTasks([
+      ...tasks.filter((task) => task.id !== id),
+      task
+    ].sort((a,b) => a.id - b.id));
   };
 
   return {
