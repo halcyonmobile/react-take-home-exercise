@@ -66,20 +66,23 @@ const TaskManager = () => {
         )) : <li>No {filter !== "all" && filter} Items</li>}
       </ul>
       <Modal isOpen={deleteModalOpen}>
-        <p className="pb-4">Do you really want to delete the {taskToDelete?.completed ? 'completed' : 'pending'} task <span className="font-bold">{taskToDelete?.title}</span>?</p>
+        <p className="pb-4">
+          Do you really want to delete the {taskToDelete?.completed ? 'completed' : 'pending'} task 
+          <span className="font-bold">{taskToDelete?.title}</span>?
+        </p>
         <div className="flex gap-2 justify-end">
-        <Button
-          onClick={() => deleteTask(taskIdToDelete)}
-          className="bg-red-500 text-white w-40"
-          >
-          DELETE
+          <Button
+            onClick={() => deleteTask(taskIdToDelete)}
+            className="bg-red-500 text-white w-40"
+            >
+            DELETE
+            </Button>
+          <Button
+            onClick={() => deleteTask(0)}
+            className="bg-gray-500 text-white w-40"
+            >
+            Cancel
           </Button>
-        <Button
-          onClick={() => deleteTask(0)}
-          className="bg-gray-500 text-white w-40"
-          >
-          Cancel
-        </Button>
         </div>
       </Modal>
     </div>
