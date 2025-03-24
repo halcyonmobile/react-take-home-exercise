@@ -48,7 +48,7 @@ const TaskManager = () => {
           onChange={(e) => setNewTask(e.target.value)}
           className="flex-grow border rounded-l py-2 px-3"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
+        <button type="submit" className={`${newTask ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-100"} px-4 rounded-r`} disabled={!newTask}>
           Add
         </button>
       </form>
@@ -68,7 +68,7 @@ const TaskManager = () => {
       <Modal isOpen={deleteModalOpen}>
         <p className="pb-4">
           Do you really want to delete the {taskToDelete?.completed ? 'completed' : 'pending'} task 
-          <span className="font-bold">{taskToDelete?.title}</span>?
+          <span className="font-bold"> {taskToDelete?.title}</span>?
         </p>
         <div className="flex gap-2 justify-end">
           <Button
