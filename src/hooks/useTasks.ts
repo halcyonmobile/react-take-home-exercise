@@ -2,17 +2,33 @@ import { useEffect, useState } from "react";
 import { Item, TaskFilter } from "../types";
 
 const FILTERS: TaskFilter[] = ["all", "completed", "pending"];
+const LOCAL_STORAGE_KEY = "task-manager-items";
+const INITAL_TASKS = [
+  { id: 1, title: "Buy groceries", completed: false },
+  { id: 2, title: "Clean the house", completed: true },
+];
+
+const getTasks = (): Item[] | [] => {
+  let storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+  if (!storedTasks) {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(INITAL_TASKS));
+    storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+  }
+
+  return JSON.parse(storedTasks || '[]');
+}
 
 const useTasks = () => {
-  const [tasks, setTasks] = useState<Item[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
+  const [tasks, setTasks] = useState<Item[]>(getTasks);
   const [filter, setFilter] = useState<TaskFilter>("all");
   const [newTask, setNewTask] = useState<string>("");
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
-  useEffect(() => setLastUpdate(new Date()), [tasks]);
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+    setLastUpdate(new Date())
+  }, [tasks]);
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === "completed") return task.completed;
