@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import TaskItem from "./TaskItem";
 import { Item } from "../constants/Item";
+
+import TaskItem from "./TaskItem";
+import FilterButton from "./shared/FilterButton";
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState<Item[]>([
@@ -64,18 +66,9 @@ const TaskManager = () => {
         </button>
       </form>
       <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
-          All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
-        >
-          Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
-          Pending
-        </button>
+        <FilterButton filterKey={"all"} currentFilter={filter} setFilter={setFilter} />
+        <FilterButton filterKey={"completed"} currentFilter={filter} setFilter={setFilter} />
+        <FilterButton filterKey={"pending"} currentFilter={filter} setFilter={setFilter} />
       </div>
       <ul>
         {filteredTasks.map((task) => (
