@@ -73,13 +73,13 @@ const TaskManager = () => {
         <div className="flex gap-2 justify-end">
           <Button
             onClick={() => deleteTask(taskIdToDelete)}
-            className="bg-red-500 text-white w-40"
+            className="bg-red-500 text-white md:w-40 sm:w-20"
             >
             DELETE
             </Button>
           <Button
             onClick={() => deleteTask(0)}
-            className="bg-gray-500 text-white w-40"
+            className="bg-gray-500 text-white md:w-40 sm:w-20"
             >
             Cancel
           </Button>
