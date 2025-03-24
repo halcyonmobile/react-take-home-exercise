@@ -14,7 +14,7 @@ const TaskItem = ({ task, onDelete, onToggle }: TaskItemProps) => {
     <li className="flex items-center justify-between border-b py-2">
       <span
         onClick={() => onToggle(task.id)}
-        className={`cursor-pointer ${
+        className={`cursor-pointer pr-1 ${
           task.completed ? "line-through text-green-500" : "text-black"
         }`}
       >
