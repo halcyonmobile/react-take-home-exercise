@@ -37,14 +37,14 @@ const TaskManager = () => {
         {filters.map((filterKey) => <FilterButton key={filterKey} filterKey={filterKey} currentFilter={filter} setFilter={setFilter} />)}
       </div>
       <ul>
-        {tasks.map((task) => (
+        {tasks.length ? tasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
             onDelete={handleDeleteTask}
             onToggle={toggleTaskCompletion}
           />
-        ))}
+        )) : <li>No {filter !== "all" && filter} Items</li>}
       </ul>
     </div>
   );
