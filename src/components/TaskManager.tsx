@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import TaskItem from "./TaskItem";
+import { Item } from "../constants/Item";
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
+  const [tasks, setTasks] = useState<Item[]>([
     { id: 1, title: "Buy groceries", completed: false },
     { id: 2, title: "Clean the house", completed: true },
   ]);
   const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const [newTask, setNewTask] = useState<string>("");
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+
+  useEffect(() => setLastUpdate(new Date()), [tasks]);
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === "completed") return task.completed;
@@ -18,12 +22,16 @@ const TaskManager = () => {
 
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newTask!.trim() === "") return;
-    const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
+    if (newTask.trim() === "") return;
+
+    const maxId = tasks.reduce((max, task) => Math.max(max, task.id), 0)
+
+    const newTaskObj:Item = {
+      id: maxId + 1,
+      title: newTask,
       completed: false,
     };
+
     setTasks([...tasks, newTaskObj]);
     setNewTask("");
   };
@@ -35,12 +43,15 @@ const TaskManager = () => {
   const toggleTaskCompletion = (id: number) => {
     const task = tasks.find((task) => task.id === id);
 
-    task.isCompleted = !task.isCompleted;
+    if (!task) return;
+
+    setLastUpdate(new Date());
+    task.completed = !task.completed;
   };
 
   return (
     <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
+      <form key={lastUpdate.toString()} onSubmit={handleAddTask} className="mb-4 flex">
         <input
           type="text"
           placeholder="New task..."

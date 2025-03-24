@@ -1,8 +1,15 @@
 import React from "react";
+import { Item } from "../constants/Item";
+
+type TaskItemProps = {
+  task: Item,
+  onDelete: Function,
+  onToggle: Function,
+}
 
 const TaskItem = ({ task, onDelete, onToggle }: any) => {
   return (
-    <li className="flex items-center justify-between border-b py-2">
+    <li key={`TaskItem=${task.id}`} className="flex items-center justify-between border-b py-2">
       <span
         onClick={() => onToggle(task.id)}
         className={`cursor-pointer ${
