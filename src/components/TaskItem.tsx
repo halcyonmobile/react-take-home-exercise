@@ -1,5 +1,5 @@
 import React from "react";
-import { Item } from "../constants/Item";
+import { Item } from "../types";
 
 type TaskItemProps = {
   task: Item,

@@ -1,7 +1,9 @@
 import React from "react";
 
+import { TaskFilter } from "../../types";
+
 type FilterButtonProps = {
-  filterKey: string,
+  filterKey: TaskFilter,
   setFilter: Function,
   currentFilter: string,
 }

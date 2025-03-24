@@ -3,3 +3,5 @@ export type Item = {
   title: string;
   completed: boolean;
 };
+
+export type TaskFilter = "all" | "completed" | "pending";
