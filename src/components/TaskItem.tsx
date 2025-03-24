@@ -7,9 +7,9 @@ type TaskItemProps = {
   onToggle: Function,
 }
 
-const TaskItem = ({ task, onDelete, onToggle }: any) => {
+const TaskItem = ({ task, onDelete, onToggle }: TaskItemProps) => {
   return (
-    <li key={`TaskItem=${task.id}`} className="flex items-center justify-between border-b py-2">
+    <li className="flex items-center justify-between border-b py-2">
       <span
         onClick={() => onToggle(task.id)}
         className={`cursor-pointer ${
