@@ -53,7 +53,7 @@ const TaskManager = () => {
         </button>
       </form>
       <div className="flex justify-around mb-4">
-        {filters.map((filterKey) => <FilterButton key={filterKey} filterKey={filterKey} currentFilter={filter} setFilter={setFilter} />)}
+        {filters.map((filterKey) => <FilterButton key={filterKey} filterKey={filterKey} currentFilter={filter} onClick={() => setFilter(filterKey)} />)}
       </div>
       <ul>
         {tasks.length ? tasks.map((task) => (

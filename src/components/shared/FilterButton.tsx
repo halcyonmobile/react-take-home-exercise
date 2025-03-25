@@ -1,16 +1,20 @@
-import React from "react";
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 import { TaskFilter } from "../../types";
 
-type FilterButtonProps = {
+interface FilterButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   filterKey: TaskFilter,
-  setFilter: Function,
   currentFilter: string,
 }
 
-const FilterButton = ({ filterKey, setFilter, currentFilter }: FilterButtonProps) => {
-  const className = currentFilter === filterKey ? "bg-blue-500 text-white" : "text-gray-700";
-  return <button onClick={() => setFilter(filterKey)} className={`px-5 py-2 rounded capitalize ${className}`}>
+const FilterButton = ({ filterKey, currentFilter, ...props }: FilterButtonProps) => {
+  const { className, ...originalProps } = props;
+
+  const classNameForCurrentFilter = currentFilter === filterKey ? "bg-blue-500 text-white" : "text-gray-700";
+
+  const buttonClassName = `px-5 py-2 rounded capitalize ${classNameForCurrentFilter} ${className || ''}`.trim().replace(/\s+/g, ' ');
+  
+  return <button className={buttonClassName} {...originalProps}>
     {filterKey}
   </button>
 };
