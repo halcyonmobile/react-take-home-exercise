@@ -6,9 +6,15 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2022",
+    "types": [
+      "@testing-library/jest-dom",
+      "@testing-library/react",
+      "@testing-library/user-event",
+      "vitest/globals",  
+    ]
   },
   "exclude": [
     "node_modules",
     "**/node_modules/*"
-  ]
+  ],
 }
