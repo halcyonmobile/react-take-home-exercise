@@ -29,7 +29,5 @@ describe('Modal Component', () => {
         
         expect(mainDiv).toBeInTheDocument();
         expect(mainDiv.className).toEqual('bg-white p-2 rounded');
-
-        screen.debug();
     });
 });
