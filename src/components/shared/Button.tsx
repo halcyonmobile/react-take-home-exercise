@@ -1,18 +1,18 @@
-import React, { MouseEventHandler } from "react";
+import React, { ButtonHTMLAttributes, MouseEventHandler } from "react";
 
-type ButtonProps = {
-    children?: React.ReactNode,
-    className?: string,
-    onClick: MouseEventHandler<HTMLButtonElement>,
-}
+const Button = ({ onClick, children, ...props } : ButtonHTMLAttributes<HTMLButtonElement>) => {
+  const { className, ...originalProps } = props;
 
-const Button = ({ onClick, className='', children } : ButtonProps) => (
+  const buttonClassName = `${className || ''} px-4 py-2 rounded`.trim();
+
+  return (
   <button
     onClick={onClick}
-    className={`${className} px-4 py-2 rounded`}
+    className={buttonClassName}
+    {...originalProps}
   >
     {children}
   </button>
-);
+)};
 
 export default Button;
