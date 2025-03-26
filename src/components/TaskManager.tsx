@@ -20,8 +20,8 @@ const TaskManager = () => {
   } = useTasks();
 
   return (
-    <div className="container mx-auto bg-white p-4 rounded shadow">
-      <form key={lastUpdate.toString()} onSubmit={handleAddTask} className="mb-4 flex">
+    <div role="taskManager" className="container mx-auto bg-white p-4 rounded shadow">
+      <form role="taskManager:newTaskForm" key={lastUpdate.toString()} onSubmit={handleAddTask} className="mb-4 flex">
         <input
           type="text"
           placeholder="New task..."
