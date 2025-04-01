@@ -1,6 +1,7 @@
-import React from "react"
+import { FC } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import TaskItem from "./TaskItem"
-import { Task } from "../types/types"
+import { Task } from "@customTypes/types"
 
 interface TaskListProps {
   tasks: Task[]
@@ -8,13 +9,24 @@ interface TaskListProps {
   onToggle: (id: number) => void
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onDelete, onToggle }) => {
+const TaskList: FC<TaskListProps> = ({ tasks, onDelete, onToggle }) => {
   return (
-    <ul>
-      {tasks.map(task => (
-        <TaskItem key={task.id} task={task} onDelete={onDelete} onToggle={onToggle} />
-      ))}
-    </ul>
+    <AnimatePresence mode="popLayout">
+      <ul className="space-y-2">
+        {tasks.map(task => (
+          <motion.div
+            key={task.id}
+            layoutId={`task-${task.id}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <TaskItem task={task} onDelete={onDelete} onToggle={onToggle} />
+          </motion.div>
+        ))}
+      </ul>
+    </AnimatePresence>
   )
 }
 

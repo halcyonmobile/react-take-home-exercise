@@ -1,6 +1,6 @@
 import { useAtom } from "jotai"
-import { tasksAtom } from "../state/tasks"
-import { Task, Filter } from "../types/types"
+import { tasksAtom } from "@state/tasks"
+import type { Task, Filter } from "@customTypes/types"
 import { getNewTaskId } from "../utils/tasks"
 
 export const useTasks = () => {

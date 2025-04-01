@@ -1,11 +1,16 @@
-import React, { FC, FormEvent, useState } from "react"
-import { useTasks } from "../hooks/useTasks"
-import TaskList from "../components/TaskList"
-import { Filter } from "../types/types"
+import { FC, FormEvent, useState } from "react"
+import { motion } from "framer-motion"
+import { useTasks } from "@hooks/useTasks"
+import TaskList from "@components/TaskList"
+import ConfirmModal from "@components/ConfirmModal"
+import type { Filter } from "@customTypes/types"
 
 const TaskManager: FC = () => {
   const [filter, setFilter] = useState<Filter>("all")
   const [newTask, setNewTask] = useState("")
+  const [modalOpen, setModalOpen] = useState(false)
+  const [taskToDelete, setTaskToDelete] = useState<number | null>(null)
+
   const { addTask, deleteTask, toggleTask, filterTasks } = useTasks()
 
   const handleSubmit = (e: FormEvent) => {
@@ -14,8 +19,26 @@ const TaskManager: FC = () => {
     setNewTask("")
   }
 
+  const confirmDelete = (id: number) => {
+    setTaskToDelete(id)
+    setModalOpen(true)
+  }
+
+  const handleDeleteConfirmed = () => {
+    if (taskToDelete !== null) {
+      setModalOpen(false)
+      deleteTask(taskToDelete)
+      setTaskToDelete(null)
+    }
+  }
+
   return (
-    <div className="container mx-auto bg-white p-6 rounded-lg shadow-md">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
+      className="container mx-auto bg-white p-6 rounded-lg shadow-md"
+    >
       <form onSubmit={handleSubmit} className="mb-4 flex">
         <input
           type="text"
@@ -38,8 +61,8 @@ const TaskManager: FC = () => {
             key={f}
             onClick={() => setFilter(f as Filter)}
             className={`px-4 py-2 rounded-md transition duration-200 ${filter === f
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-blue-500 text-white shadow-md"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -47,8 +70,16 @@ const TaskManager: FC = () => {
         ))}
       </div>
 
-      <TaskList tasks={filterTasks(filter)} onDelete={deleteTask} onToggle={toggleTask} />
-    </div>
+      <TaskList tasks={filterTasks(filter)} onDelete={confirmDelete} onToggle={toggleTask} />
+
+      <ConfirmModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={handleDeleteConfirmed}
+        title="Delete Task"
+        message="Are you sure you want to delete this task?"
+      />
+    </motion.div>
   )
 }
 

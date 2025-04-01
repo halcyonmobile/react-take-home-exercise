@@ -1,5 +1,6 @@
-import React, { FC } from "react"
-import { Task } from "../types/types"
+import { FC } from "react"
+import { motion } from "framer-motion"
+import { Task } from "@customTypes/types"
 
 interface TaskItemProps {
   task: Task
@@ -9,7 +10,13 @@ interface TaskItemProps {
 
 const TaskItem: FC<TaskItemProps> = ({ task, onDelete, onToggle }) => {
   return (
-    <li className="flex items-center justify-between border-b py-2 px-4">
+    <motion.li
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3 }}
+      className="flex items-center justify-between border-b py-2 px-4"
+    >
       <span
         onClick={() => onToggle(task.id)}
         className={`cursor-pointer transition duration-200 ${task.completed ? "line-through text-green-600" : "text-gray-900 hover:text-gray-600"
@@ -24,7 +31,7 @@ const TaskItem: FC<TaskItemProps> = ({ task, onDelete, onToggle }) => {
       >
         Delete
       </button>
-    </li>
+    </motion.li>
   )
 }
 

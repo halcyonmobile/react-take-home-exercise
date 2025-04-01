@@ -118,3 +118,82 @@ Your submission will be evaluated based on:
 - **Clarifications:** If you have any questions or need further clarifications during the exercise, feel free to reach out.
 
 Good luck, and we look forward to reviewing your submission!
+
+
+# Implementation Details
+
+## Changes Implemented
+
+### 1. **State Management with Jotai**
+- Added **Jotai** for state management since no state management solution was previously in place.
+- Created an atom (`tasksAtom`) using `atomWithStorage`, allowing tasks to persist in local storage.
+- Implemented the `useTasks` hook to manage tasks using `useAtom`.
+- Chose Jotai because it is lightweight and simple for small projects. For a large-scale project, Redux and its ecosystem would be a better choice.
+
+### 2. **Bug Fixes**
+- **Task Filtering Issue:**
+  - Fixed the filtering logic in `useTasks` to correctly return completed, pending, or all tasks based on the selected filter.
+  - Previously, tasks were not updating correctly when switching between filters, causing inconsistencies in the displayed list.
+- **Task Deletion Issue:**
+  - Fixed an issue where deleting a task did not immediately update the UI.
+  - The issue was caused by a stale state reference, which has been resolved by properly updating the state after deletion.
+
+### 3. **Code Refactoring & Improvements**
+- Improved code modularity by extracting task-related logic into `useTasks`.
+- Used **TypeScript** for strict type safety, ensuring correctness across components.
+- Created a utility function `getNewTaskId` to ensure new tasks have unique IDs.
+
+### 4. **UI Enhancements**
+- Improved UI consistency by refining **Tailwind CSS** styles.
+- Applied `framer-motion` animations to enhance user experience.
+- Added a confirmation modal (`ConfirmModal`) before deleting a task.
+
+### 5. **Testing Improvements**
+- Fixed warnings related to `Headless UI` by adding **jsdom-testing-mocks**.
+- Ensured all test cases pass successfully.
+- Added tests to verify that:
+  - Tasks are added correctly and persist in the state.
+  - Tasks can be marked as completed or pending.
+  - The delete confirmation modal appears before deletion.
+  - Task filtering updates the list correctly.
+
+## Assumptions Made
+- **Local Storage Persistence:**
+  - Tasks should persist between page reloads, so `atomWithStorage` is used.
+- **Task IDs:**
+  - Each task must have a unique `id`, handled by `getNewTaskId`.
+- **Task Filtering Logic:**
+  - Tasks should be filtered dynamically based on their completion status.
+
+## How to Test the Improvements
+
+### 1. **Run the Application**
+```bash
+pnpm dev
+```
+- Open `http://localhost:5173` in a browser.
+- Ensure the UI loads without errors.
+
+### 2. **Test Task Functionality**
+#### a) Adding a Task
+- Enter a task name and click **Add**.
+- The task should appear in the list.
+
+#### b) Marking a Task as Completed
+- Click on a task to toggle its completion status.
+- It should visually update based on the filter applied.
+
+#### c) Deleting a Task
+- Click the delete button for a task.
+- A confirmation modal should appear.
+- Confirm deletion; the task should be removed.
+
+#### d) Filtering Tasks
+- Click each filter option (**All**, **Completed**, **Pending**).
+- Tasks should update accordingly.
+
+### 3. **Run Tests**
+```bash
+pnpm test
+```
+- Ensure all test cases pass without errors.
