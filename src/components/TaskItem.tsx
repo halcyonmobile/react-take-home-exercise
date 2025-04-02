@@ -1,28 +1,35 @@
 import React from "react";
+import { useDeleteTask, useUpdateTask } from "../hooks/useTask";
 import { Task } from "./types";
 
-const TaskItem = ({
-  task,
-  onDelete,
-  onToggle,
-}: {
-  task: Task;
-  onDelete: (id: number) => void;
-  onToggle: (id: number) => void;
-}) => {
+const TaskItem = ({ task }: { task: Task }) => {
+  const { mutate: deleteTask } = useDeleteTask();
+  const { mutate: updateTask } = useUpdateTask();
+
+  const deleteHandler = () => {
+    deleteTask(task.id.toString());
+  };
+
+  const toogleCompleteHandler = () => {
+    updateTask({
+      id: task.id.toString(),
+      task: { ...task, completed: !task.completed },
+    });
+  };
+
   return (
     <li className="flex items-center justify-between border-b py-2">
       <span
-        onClick={() => onToggle(task.id)}
         className={`cursor-pointer ${
           task.completed && "line-through text-green-500"
         }`}
+        onClick={toogleCompleteHandler}
       >
         {task.title}
       </span>
 
       <button
-        onClick={() => onDelete(task.id)}
+        onClick={deleteHandler}
         className="bg-red-500 text-white px-4 py-2 rounded"
       >
         Delete

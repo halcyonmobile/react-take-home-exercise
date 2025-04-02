@@ -4,6 +4,8 @@ export type Task = {
   completed: boolean;
 };
 
+export type TaskRequest = Pick<Task, "title" | "completed">;
+
 export enum Filter {
   All = "all",
   Completed = "completed",

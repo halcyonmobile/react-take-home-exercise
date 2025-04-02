@@ -1,28 +1,21 @@
-import React, { FormEvent, useMemo, useState } from "react";
+import React, { FormEvent, useState } from "react";
 
+import { useCreateTask } from "../hooks/useTask";
 import FilterButton from "./FilterButton";
-import TaskItem from "./TaskItem";
+import TaskList from "./TaskList";
 import { Filter, Task } from "./types";
 
-const TaskList = [
+const TASK_LIST = [
   { id: 1, title: "Buy groceries", completed: false },
   { id: 2, title: "Clean the house", completed: true },
 ];
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<Task[]>(TaskList);
+  const [tasks, setTasks] = useState<Task[]>(TASK_LIST);
   const [filter, setFilter] = useState<Filter>(Filter.All);
   const [newTask, setNewTask] = useState<string>("");
 
-  const filteredTasks = useMemo<Task[]>(
-    () =>
-      tasks.filter((task) => {
-        if (filter === Filter.Completed) return task.completed;
-        if (filter === Filter.Pending) return !task.completed;
-        return true;
-      }),
-    [tasks, filter]
-  );
+  const { mutate: createTask } = useCreateTask();
 
   const handleAddTask = (event: FormEvent) => {
     event.preventDefault();
@@ -30,27 +23,13 @@ const TaskManager = () => {
     if (!newTask) return;
 
     const newTaskObj = {
-      id: tasks.length + 1,
       title: newTask,
       completed: false,
     };
 
-    setTasks([...tasks, newTaskObj]);
+    createTask(newTaskObj);
+
     setNewTask("");
-  };
-
-  const handleDeleteTask = (id: number) => {
-    const newTasksList = tasks.filter((task) => task.id !== id);
-
-    setTasks(newTasksList);
-  };
-
-  const toggleTaskCompletion = (id: number) => {
-    const newTasksList = tasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    );
-
-    setTasks(newTasksList);
   };
 
   return (
@@ -90,16 +69,7 @@ const TaskManager = () => {
           Pending
         </FilterButton>
       </div>
-      <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
-      </ul>
+      <TaskList filter={filter} />
     </div>
   );
 };
