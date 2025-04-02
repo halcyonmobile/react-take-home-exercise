@@ -1,18 +1,13 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "title": "Buy groceries",
+      "id": "9d9e",
+      "title": "First Task",
       "completed": false
     },
     {
-      "id": "2",
-      "title": "Clean the house",
-      "completed": true
-    },
-    {
-      "id": "d717",
-      "title": "Test",
+      "id": "36f5",
+      "title": "Second Task",
       "completed": false
     }
   ]

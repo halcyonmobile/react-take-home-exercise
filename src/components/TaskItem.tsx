@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDeleteTask, useUpdateTask } from "../hooks/useTask";
+import DeleteTaskModal from "./DeleteTaskModal";
 import { Task } from "./types";
 
 const TaskItem = ({ task }: { task: Task }) => {
   const { mutate: deleteTask } = useDeleteTask();
   const { mutate: updateTask } = useUpdateTask();
 
-  const deleteHandler = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const deleteTaskHandler = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const deleteTaskAction = () => {
     deleteTask(task.id.toString());
   };
+
+  const onCancelHandler = () => setIsDeleteModalOpen(false);
 
   const toogleCompleteHandler = () => {
     updateTask({
@@ -19,6 +28,12 @@ const TaskItem = ({ task }: { task: Task }) => {
 
   return (
     <li className="flex items-center justify-between border-b py-2">
+      <DeleteTaskModal
+        isOpen={isDeleteModalOpen}
+        onDelete={deleteTaskAction}
+        onCancel={onCancelHandler}
+      />
+
       <span
         className={`cursor-pointer ${
           task.completed && "line-through text-green-500"
@@ -29,7 +44,7 @@ const TaskItem = ({ task }: { task: Task }) => {
       </span>
 
       <button
-        onClick={deleteHandler}
+        onClick={deleteTaskHandler}
         className="bg-red-500 text-white px-4 py-2 rounded"
       >
         Delete

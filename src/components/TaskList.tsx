@@ -20,12 +20,7 @@ const TaskList = ({ filter }: { filter: Filter }) => {
       )}
       <ul className="space-y-2">
         {data.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={() => {}}
-            onToggle={() => {}}
-          />
+          <TaskItem key={task.id} task={task} />
         ))}
       </ul>
     </div>
