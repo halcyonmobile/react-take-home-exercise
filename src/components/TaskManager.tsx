@@ -1,47 +1,35 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 
-import TaskItem from "./TaskItem";
+import { useCreateTask } from "../hooks/useTask";
+import FilterButton from "./FilterButton";
+import TaskList from "./TaskList";
+import { Filter, Task } from "./types";
+
+const TASK_LIST = [
+  { id: 1, title: "Buy groceries", completed: false },
+  { id: 2, title: "Clean the house", completed: true },
+];
 
 const TaskManager = () => {
-  const [tasks, setTasks] = useState<any[]>([
-    { id: 1, title: "Buy groceries", completed: false },
-    { id: 2, title: "Clean the house", completed: true },
-  ]);
-  const [filter, setFilter] = useState("all");
-  const [newTask, setNewTask] = useState<string>();
+  const [tasks, setTasks] = useState<Task[]>(TASK_LIST);
+  const [filter, setFilter] = useState<Filter>(Filter.All);
+  const [newTask, setNewTask] = useState<string>("");
 
-  // Intentional bug: The filter conditions are reversed.
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed === false;
-    if (filter === "pending") return task.completed === true;
-    return true;
-  });
+  const { mutate: createTask } = useCreateTask();
 
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask!.trim() === "") return;
+  const handleAddTask = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (!newTask) return;
+
     const newTaskObj = {
-      id: tasks.length + 1,
-      name: newTask,
+      title: newTask,
       completed: false,
     };
-    setTasks([...tasks, newTaskObj]);
+
+    createTask(newTaskObj);
+
     setNewTask("");
-  };
-
-  // Intentional bug: Directly mutating the tasks array when deleting.
-  const handleDeleteTask = (id: number) => {
-    const index = tasks.findIndex((task) => task.id === id);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      setTasks(tasks);
-    }
-  };
-
-  const toggleTaskCompletion = (id: number) => {
-    const task = tasks.find((task) => task.id === id);
-
-    task.isCompleted = !task.isCompleted;
   };
 
   return (
@@ -59,29 +47,29 @@ const TaskManager = () => {
         </button>
       </form>
       <div className="flex justify-around mb-4">
-        <button onClick={() => setFilter("all")} className="text-gray-700">
+        <FilterButton
+          filter={Filter.All}
+          value={filter}
+          onClick={() => setFilter(Filter.All)}
+        >
           All
-        </button>
-        <button
-          onClick={() => setFilter("completed")}
-          className="text-gray-700"
+        </FilterButton>
+        <FilterButton
+          filter={Filter.Completed}
+          value={filter}
+          onClick={() => setFilter(Filter.Completed)}
         >
           Completed
-        </button>
-        <button onClick={() => setFilter("pending")} className="text-gray-700">
+        </FilterButton>
+        <FilterButton
+          filter={Filter.Pending}
+          value={filter}
+          onClick={() => setFilter(Filter.Pending)}
+        >
           Pending
-        </button>
+        </FilterButton>
       </div>
-      <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
-      </ul>
+      <TaskList filter={filter} />
     </div>
   );
 };

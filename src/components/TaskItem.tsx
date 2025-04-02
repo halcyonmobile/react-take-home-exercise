@@ -1,25 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDeleteTask, useUpdateTask } from "../hooks/useTask";
+import DeleteTaskModal from "./DeleteTaskModal";
+import { Task } from "./types";
 
-const TaskItem = ({ task, onDelete, onToggle }: any) => {
+const TaskItem = ({ task }: { task: Task }) => {
+  const { mutate: deleteTask } = useDeleteTask();
+  const { mutate: updateTask } = useUpdateTask();
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const deleteTaskHandler = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const deleteTaskAction = () => {
+    deleteTask(task.id.toString());
+  };
+
+  const onCancelHandler = () => setIsDeleteModalOpen(false);
+
+  const toogleCompleteHandler = () => {
+    updateTask({
+      id: task.id.toString(),
+      task: { ...task, completed: !task.completed },
+    });
+  };
+
   return (
     <li className="flex items-center justify-between border-b py-2">
+      <DeleteTaskModal
+        isOpen={isDeleteModalOpen}
+        onDelete={deleteTaskAction}
+        onCancel={onCancelHandler}
+      />
+
       <span
-        onClick={() => onToggle(task.id)}
         className={`cursor-pointer ${
-          task.isCompleted ? "text-black" : "line-through text-green-500"
+          task.completed && "line-through text-green-500"
         }`}
+        onClick={toogleCompleteHandler}
       >
         {task.title}
       </span>
 
       <button
-        onClick={() => onDelete(task.id)}
-        style={{
-          backgroundColor: "red",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-        }}
+        onClick={deleteTaskHandler}
+        className="bg-red-500 text-white px-4 py-2 rounded"
       >
         Delete
       </button>
